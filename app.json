@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "name": "SahukarScribe",
+    "slug": "sahukarScribe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.vijay09.AwesomeProject"
+      "package": "com.vijay09.SahukarScribe"
     },
     "web": {
       "favicon": "./assets/favicon.png"
