@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "y"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,7 +30,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "63b394be-56dd-4bf7-91ad-398f62f455f8"
+        "projectId": "66d7a674-09f8-4f60-b486-8ce75a8ddf2e"
       }
     }
   }

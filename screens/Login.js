@@ -7,7 +7,8 @@ import {
   TextInput,
   Alert,
   Appearance,
-  useColorScheme,StatusBar 
+  useColorScheme,
+  StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -68,21 +69,23 @@ const Login = ({ navigation }) => {
   ];
   return (
     <SafeAreaView style={containerStyle}>
-      <StatusBar 
-        hidden={false} 
+      <StatusBar
+        hidden={false}
         backgroundColor={isDarkMode ? "#0f0f0f" : "#fff"}
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        barStyle={isDarkMode ? "light-content" : "dark-content"}
         translucent={true}
       />
       <Text
         style={[styles.title, { color: isDarkMode ? "#575DFB" : "#575DFB" }]}>
         Login
       </Text>
-      <Text style={[styles.Lable, { color: isDarkMode ? "#F6F5F5" : "#121212" }]}>
+      <Text
+        style={[styles.Lable, { color: isDarkMode ? "#F6F5F5" : "#121212" }]}>
         Login now to track all your {"\n"}Borrowers Details!
       </Text>
       <View style={styles.inputContainer}>
-        <Text style={[styles.label, { color: isDarkMode ? "#F6F5F5" : "#121212" }]}>
+        <Text
+          style={[styles.label, { color: isDarkMode ? "#F6F5F5" : "#121212" }]}>
           Email
         </Text>
         <TextInput
@@ -97,7 +100,8 @@ const Login = ({ navigation }) => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        <Text style={[styles.label, { color: isDarkMode ? "#F6F5F5" : "#121212" }]}>
+        <Text
+          style={[styles.label, { color: isDarkMode ? "#F6F5F5" : "#121212" }]}>
           Your Password
         </Text>
         <TextInput
@@ -142,7 +146,10 @@ const Login = ({ navigation }) => {
             Don't have an account?
           </Text>
 
-          <Text style={[styles.loginText, { color: "#575DFB" }]}> Register</Text>
+          <Text style={[styles.loginText, { color: "#575DFB" }]}>
+            {" "}
+            Register
+          </Text>
         </Text>
       </TouchableOpacity>
 
@@ -170,8 +177,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-   
-   paddingLeft: 20,
+
+    paddingLeft: 20,
 
     marginBottom: 8,
   },
@@ -235,7 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 10,
     paddingRight: 25,
-    textDecorationLine:"underline",
+    textDecorationLine: "underline",
     fontWeight: "bold",
   },
 
@@ -249,15 +256,14 @@ const styles = StyleSheet.create({
     // borderWidth:1,
     // borderColor: "white",
     marginTop: 20,
-    width:50,
-    alignSelf:"center",
+    width: 50,
+    alignSelf: "center",
   },
   skipButtonText: {
     fontSize: 16,
     color: "#4285F4",
-    textAlign:"center",
+    textAlign: "center",
     fontWeight: "bold",
-    
   },
   haveAccountText: {
     color: "#000",

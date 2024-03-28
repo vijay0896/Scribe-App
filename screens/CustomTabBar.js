@@ -30,6 +30,7 @@ if (!navigation || !navigation.emit) {
         backgroundColor: isDarkMode ? "#0f0f0f" : "#fff",
         borderTopWidth: 0.2,
         borderTopColor: isDarkMode ? "#555" : "#F0F0F0",
+        marginTop:0,
       }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];

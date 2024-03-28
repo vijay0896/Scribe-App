@@ -1,7 +1,8 @@
 // App.js
-import React, { useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
-import { StyleSheet, Text, View, TouchableOpacity, Image,} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Home from "./screens/homeScreen";
 import Add from "./screens/Add";
 import Borrow from "./screens/Borrowers";
@@ -16,6 +17,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { LogBox } from "react-native";
 import CustomTabBar from "./screens/CustomTabBar"; // Import CustomTabBar component
 
+import { auth } from "./firebase/firebase.config"; // Import your Firebase authentication instance
+
 // Ignore log notification by message:
 LogBox.ignoreLogs(["Warning: ..."]);
 
@@ -25,10 +28,21 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = ({ navigation }) => {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState(null);
+
+  const onAuthStateChanged = (user) => {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  };
+
   useEffect(() => {
-    LogBox.ignoreLogs(["Warning: ..."]); // Ignore specific logs
-    // Add more logs to ignore as needed
+    const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
   }, []);
+
+  if (initializing) return null;
+
   return (
     <ThemeProvider theme={{ mode: "dark" }}>
       <NavigationContainer>
@@ -38,44 +52,48 @@ const App = ({ navigation }) => {
               backgroundColor: "#0f0f0f", // Dark background color
             },
             headerTintColor: "#ffffff", // Text color
-            
           }}>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={({ navigation }) => ({
-              headerRight: () => (
-                <TouchableOpacity
-                  style={styles.skipButton}
-                  onPress={() => navigation.navigate("Home")}>
-                  <Text style={styles.skipButtonText}>Skip</Text>
-                </TouchableOpacity>
-              ),
-              headerStyle: {},
-              headerShown: false,
+          {user ? (
+            <Stack.Screen
+              name="Home"
+              component={TabNavigator}
+              options={{ headerShown: false }}
+            />
+          ) : (
+            <>
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={({ navigation }) => ({ // Pass navigation prop here
+                  headerRight: () => (
+                    <TouchableOpacity
+                      style={styles.skipButton}
+                      onPress={() => navigation.navigate("Home")}>
+                      <Text style={styles.skipButtonText}>Skip</Text>
+                    </TouchableOpacity>
+                  ),
+                  headerStyle: {},
+                  headerShown: false,
+                })}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUp}
+                options={({}) => ({
+                  headerStyle: {},
+                  headerShown: false,
+                })}
+              />
+              <Stack.Screen
+              name="Home"
+              component={TabNavigator}
+              options={{ headerShown: false }}
+            />
               
-            })}
-          />
-
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={({}) => ({
-              headerStyle: {},
-              headerShown: false,
-            })}
-          />
-
-          <Stack.Screen
-            name="Home"
-            component={TabNavigator}
-            options={{ headerShown: false, headerStyle: {} 
-            
-          }} // Hide the header for the Home screen
-          />
+            </>
+          )}
+          
           <Stack.Screen name="Add" component={Add} />
-          {/* <Stack.Screen name="Borrow" component={Borrow} options={{ headerShown: false }} /> */}
-
           <Stack.Screen
             name="Borrow"
             component={Borrow}
@@ -84,20 +102,6 @@ const App = ({ navigation }) => {
           <Stack.Screen
             name="My Profile"
             component={MyProfile}
-            options={{
-              headerTitle: "My Profile",
-              headerTitleStyle: {
-                fontWeight: "600",
-                justifyContent: "center",
-                bottom: 2,
-                fontSize: 20,
-              },
-              headerStyle: {
-                backgroundColor: "#AAD4E1",
-              },
-              headerTintColor: "black",
-              headerBackTitleVisible: false,
-            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
@@ -114,16 +118,9 @@ const TabNavigator = ({ navigation }) => {
       screenOptions={() => ({
         // Show header only for the Dashboard screen
         headerStyle: {
-          backgroundColor: isDarkMode ? "#0f0f0f" : "#fff",// Dark mode header background color
+          backgroundColor: isDarkMode ? "#0f0f0f" : "#fff", // Dark mode header background color
         },
         headerTintColor: isDarkMode ? "#fff" : "#000", // Dark mode header text color
-        // headerLeft: () => (
-        //   <TouchableOpacity onPress={() => navigation.goBack()}>
-        //     {/* You can customize the back arrow icon here */}
-        //     {/* <Icon name="arrow-back" size={24} color="#000" />   */}
-        //     <Text>Back</Text> 
-        //   </TouchableOpacity>
-        // ),
       })}>
       <Tab.Screen
         name="Dashboard"

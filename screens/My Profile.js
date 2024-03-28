@@ -200,12 +200,15 @@ const styles = StyleSheet.create({
   darkModeContainer: {
     flexDirection:"row",
     alignItems: "center",
-    justifyContent: "space-between",
+    
+    justifyContent: "space-evenly",
     paddingHorizontal: 20,
     paddingVertical: 20,
+    
   },
   darkModeText: {
     fontSize: 16,
+   marginEnd: 16,
   },
   infoContainer: {
     flexDirection: "row",
@@ -260,6 +263,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 120,
     alignItems: "center",
+    marginLeft: 16,
   },
   logoutButton: {
     backgroundColor: "red",
@@ -299,7 +303,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     textAlign: "center",
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#000",
     justifyContent: "center",

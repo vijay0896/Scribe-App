@@ -22,6 +22,7 @@ import { getDatabase, ref, update, onValue, remove } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { TouchableWithoutFeedback } from "react-native";
 import { Alert } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Borrowers() {
   const [data, setData] = useState([]);
@@ -276,12 +277,13 @@ export default function Borrowers() {
   ];
 
   const renderItem = ({ item }) => (
-    <View>
+    <ScrollView  >
       <View
         style={[
           rowContainerStyle,
           selectedBorrower === item && {
             height: showButtons ? 164 : 115,
+            
           },
         ]}>
         <View
@@ -449,7 +451,7 @@ export default function Borrowers() {
           </View>
         </Modal>
       </View>
-    </View>
+    </ScrollView>
   );
 
   return (
@@ -500,12 +502,12 @@ export default function Borrowers() {
             value={search}
             onChangeText={(text) => setSearch(text)}
           />
-          <TouchableOpacity onPress={() => setShowFilters(!showFilters)}>
+          {/* <TouchableOpacity onPress={() => setShowFilters(!showFilters)}>
             <Image
               source={require("../assets/down.png")} // Replace with your hamburger menu icon
               style={{ width: 25, height: 25, marginRight: 10 }}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
   
         {showFilters && (
@@ -637,10 +639,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 10,
+    paddingBottom : 50,
+   
     backgroundColor: "#F3F8FF",
+   
+   
+   
+   
   },
   darkContainer: {
     // backgroundColor: "rgba(32, 32, 32, 1)",
+
     backgroundColor: "black", // Dark background color
   },
   flatListContainer: {},
